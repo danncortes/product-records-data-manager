@@ -1,6 +1,14 @@
+import { Id } from "../types.js";
 import Db from "./database.js";
 
-const brands = [
+export type Brand = {
+  name: string,
+  enabled: 1 | 0
+}
+
+export type BrandRes = Brand & Id
+
+const brands: Brand[] = [
 //   {
 //     name: "Coop",
 //     enabled: 1,
@@ -45,14 +53,14 @@ const brands = [
 //     name: "Echt Entlebuch",
 //     enabled: 1,
 //   },
-  {
-    name: "Migros",
-    enabled: 1,
-  },
+    {
+        name: "Migros",
+        enabled: 1,
+    },
 ];
 
-export function storeBrands() {
-  const db = new Db();
+export function storeBrands(brands: Brand[]): Promise<any> {
+    const db = new Db();
 
-  db.store(brands, "brands");
+    return db.store(brands, "brands");
 }
